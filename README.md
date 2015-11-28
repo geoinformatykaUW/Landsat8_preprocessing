@@ -1,7 +1,7 @@
 # Landsat8_preprocessing
 
-Projekt przetwarania danych z stalelity Landsat - 8.
-Projekt skupia sie na przetworzneniu danych pobranych prosto z earthexplorer w formacie spakowanym,
+Projekt przetwarzania danych z satelity Landsat - 8.
+Projekt skupia sie na przetworzneniu danych pobranych prosto z earthexplorer w formacie spakowanym (.tar),
 a nastepnie przetworznie go do dalszych prac.
 
 Zakres prac w projekcie:
