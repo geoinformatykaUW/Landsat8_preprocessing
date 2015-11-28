@@ -1,19 +1,19 @@
 #27.11.2015
 #Testowanie Git-hub
 Projekt przetwarania danych z stalelity Landsat - 8.
-Projekt skupia siê na przetworzneniu danych pobranych prosto z earthexplorer w formacie spakowanym,
+Projekt skupia sie na przetworzneniu danych pobranych prosto z earthexplorer w formacie spakowanym,
 a nastepnie przetworznie go do dalszych prac.
 
 Zakres prac w projekcie:
 	1.Przygotowanie danych:
-		a) po³¹cznie danych z sensorów TIRS i OLI w nastepuj¹ce zestawy:
+		a) polacznie danych z sensorow TIRS i OLI w nastepujace zestawy:
 			-Plik z danymi z sensora wielospektralnego OLI, 30m + kompletny header
-			-Plik z kana³em panchromatycznym, 15m + kompletny header
-			-Plik zawieraj¹cy BQA (Band Quality Analysis) + kompletny header
+			-Plik z kanalem panchromatycznym, 15m + kompletny header
+			-Plik zawierajacy BQA (Band Quality Analysis) + kompletny header
 			-Plik z danymi z sensora TIRS + kompletny header
-		b)wyci¹gniêcie danych z pliku z metadanymi (zestaw funkcji do parsownia pliku lub
+		b)wyciagniecie danych z pliku z metadanymi (zestaw funkcji do parsownia pliku lub
 		                                            zapisanie tych danych do innego pliku w formacie .csv)
 	2.Wstepne przetwaranie:
 		a) implementacja algorytmu do maskowania chmur i wykrywania cieni
-		b) opracowanie mask chmur, cieni i zbiorników wodnych
-	3.Korecja danych z sensora OLI
+		b) opracowanie mask chmur, cieni i zbiornikow wodnych
+	3.Korekcja danych z sensora OLI
