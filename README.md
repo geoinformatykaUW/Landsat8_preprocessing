@@ -1,8 +1,8 @@
 # Landsat8 data preprocessing
 
 Projekt przetwarzania danych z satelity Landsat - 8.
-Projekt skupia sie na przetworzneniu danych pobranych prosto z earthexplorer w formacie spakowanym (.tar),
-a nastepnie przetworznie go do dalszych prac.
+Projekt skupia sie na przetworzeniu danych pobranych prosto z earthexplorer w formacie spakowanym (.tar),
+a nastepnie przetworzenie go do dalszych prac.
 
 Zakres prac w projekcie:
 <ol>
