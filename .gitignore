@@ -49,6 +49,9 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
+# Data and results folder
+[Dd]ata/
+[Rr]esults
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -215,3 +218,4 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 .spyderproject
+.spyderworkspace
