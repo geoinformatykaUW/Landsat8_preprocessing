@@ -10,6 +10,7 @@ sys.path.append(os.getcwd()+"/lib")
 
 import test_lib
 
+import gdal
 
 if __name__ == "__main__":
     print test_lib.dodaj(3,2)
