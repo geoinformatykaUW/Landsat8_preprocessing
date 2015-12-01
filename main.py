@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-#import test_lib
 import os
 import sys
+#Edwin
 #---------------------------------------------
 #Dodanie foldera lib do sciezki python
 #Umozliwia importowanie modulow z tego foldera
 sys.path.append(os.getcwd()+"/lib")
 #---------------------------------------------
-
-import gdal
 
 
 import test_lib
