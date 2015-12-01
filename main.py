@@ -8,6 +8,9 @@ import sys
 sys.path.append(os.getcwd()+"/lib")
 #---------------------------------------------
 
+import gdal
+
+
 import test_lib
 
 
