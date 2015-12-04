@@ -13,3 +13,5 @@ import test_lib
 if __name__ == "__main__":
     print test_lib.dodaj(3,2)
     print test_lib.znajdz_literke("Geografia","a")
+	
+#Trzeba cos dodac
