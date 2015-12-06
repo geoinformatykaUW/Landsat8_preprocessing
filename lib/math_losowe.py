@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Dec 06 22:10:58 2015
-
-@author: Edwin
+# 12.06.2015
+# Technomag
+# Zadanie na lekcji
 """
 
 import random
