@@ -15,3 +15,5 @@ if __name__ == "__main__":
     print test_lib.znajdz_literke("Geografia","a")
 	
 #Trzeba cos dodac
+
+#Tu tez
