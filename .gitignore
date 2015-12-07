@@ -51,7 +51,9 @@ build/
 [Oo]bj/
 # Data and results folder
 [Dd]ata/
-[Rr]esults
+[Rr]esults/
+[Dd]ane/
+[Ww]yniki/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
