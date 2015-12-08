@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
-import os
-import sys
-
+import sys, os
 #---------------------------------------------
 #Dodanie foldera lib do sciezki python
 #Umozliwia importowanie modulow z tego foldera
 sys.path.append(os.getcwd()+"/lib")
 #---------------------------------------------
 
-import test_lib
+import unpacking
 
 if __name__ == "__main__":
-    print test_lib.dodaj(3,2)
-    print test_lib.znajdz_literke("Geografia","a")
-	
-#Trzeba cos dodac
-
-#Tu tez
+    
+    in_file="dane/LC81910232015262LGN00.tar.gz"
+    write_dir="dane/sceny"
+    
+    unpacking.un_gzip_file(in_file, write_dir)   
