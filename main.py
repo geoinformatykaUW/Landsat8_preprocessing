@@ -14,3 +14,5 @@ if __name__ == "__main__":
     write_dir="dane/sceny"
     
     unpacking.un_gzip_file(in_file, write_dir)   
+
+#dalsze prace
