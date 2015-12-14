@@ -3,6 +3,7 @@
 #Wypadowuje zawartosc archwum do wybranego katalogu
 
 import os
+import sys
 import tarfile
 
 def un_gzip_file(archive, write_file):
@@ -63,4 +64,5 @@ def unpack_targz_file(archive_file, save_dir):
         with tarfile.open(archive_file) as tar_file:
             tar_file.extractall(path=save_dir) 
     except IOError as e:
-        print e
+        print "Nie ma takiego pliku. Sprawdz nazwe lub sciezke"
+        sys.exit(2)
