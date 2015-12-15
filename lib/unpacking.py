@@ -64,5 +64,5 @@ def unpack_targz_file(archive_file, save_dir):
         with tarfile.open(archive_file) as tar_file:
             tar_file.extractall(path=save_dir) 
     except IOError as e:
-        print "Nie ma takiego pliku. Sprawdz nazwe lub siezke"
+        print "Nie ma takiego pliku. Sprawdz nazwe lub sciezke"
         sys.exit(2)
