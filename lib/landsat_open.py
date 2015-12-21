@@ -22,23 +22,41 @@ def upload_band(input_dat,bandX):
     matrix=numpy.array(kanal.ReadAsArray(),dtype=numpy.float32)
     return matrix
     
-input_Landsat=get_input_dat('D:/studia/progamowanie/rastry/LandSat8_Wielkopolska_multispectral_10band-500x500.bsq')
-#print upload_band(input_Landsat,1)
-
-REFLECTANCE_ADD_BAND_N=-0.1
-REFLECTANCE_MULT_BAND_n=0.00002
-def reflectance(source,bandX):
-    start_time=time.time()
+def band_reflectance(source,bandX,MP,AP):
+    '''MP = Reflectance multiplicative scaling factor for the band (REFLECTANCEW_MULT_BAND_n from the metadata).
+       AP = Reflectance additive scaling factor for the band (REFLECTANCE_ADD_BAND_N from the metadata).'''
     #matrix1=[REFLECTANCEW_MULT_BAND_n*x for x in upload_band(input_Landsat,1)-REFLECTANCE_ADD_BAND_N]
-    matx=upload_band(input_Landsat,1)*REFLECTANCE_MULT_BAND_n+REFLECTANCE_ADD_BAND_N
-    end_time=time.time()-start_time
-    return matx
+    matrix_calibration=upload_band(source,bandX)*MP+AP
+    return matrix_calibration
     
-reflectance(input_Landsat,5)    
+def get_MP():
+    '''pobiera wartosc mp z metadanych'''
+    MP=0.00002
+    return MP    
+    
+def get_AP():
+    '''pobiera wartosc ap z metadanych'''
+    AP=-0.1
+    return AP
+    
+def save_cal_image(input_landsat,output_bsq,sizeX,sizeY):
+    '''Funkcja iteruje po'''
+    sterownik=gdal.GetDriverByName('ENVI')
+    sterownik.Register()
+    zapis=sterownik.Create(output_bsq,sizeX,sizeY,5,gdal.GDT_Float32)#zawsze jest 7 kanalow
+    for x in range(5):
+        x=x+1
+        zapis.GetRasterBand(x).WriteArray(band_reflectance(input_landsat,x,get_MP(),get_AP()))#input landsat musi być otwarte przed wywołaniem funkcji
+    zapis=None #zwolnienie pamieci
+    
+def run_calibration(input_image,output_image): #jeszcze metadane dla metod get_AP i get_MP
+    #print upload_band(input_Landsat,1)
+    save_cal_image(get_input_dat(input_image),output_image,500,500)
+
+run_calibration('D:/studia/progamowanie/rastry/LandSat8_Wielkopolska_multispectral_10band-500x500.bsq','D:/studia/progamowanie/rastry/LandSat8_cali_new3.bsq')  
 
 
-sterownik=gdal.GetDriverByName('ENVI')
-sterownik.Register()
-zapis=sterownik.Create('D:/studia/progamowanie/rastry/JAKIES_COS1.bsq',500,500,1,gdal.GDT_Float32)
-zapis.GetRasterBand(1).WriteArray(reflectance(input_Landsat,1))
-zapis=None
+
+#REFLECTANCE_ADD_BAND_N=-0.1
+#REFLECTANCE_MULT_BAND_n=0.00002    
+#reflectance(input_Landsat,5
