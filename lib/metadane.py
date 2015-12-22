@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+#Wyciągnięcie danych z pliku z metadanymi w postaci obiektu i jego atrybutów
 
 def wczytanie_danych(plik):
 	"""
@@ -10,26 +10,52 @@ def wczytanie_danych(plik):
 	for linia in p:
 		elementy = linia.split("=")
 		if len(elementy) == 2:
-			pojemnik[elementy[0].strip()] = elementy[1].strip()
+			wartosc = elementy[1].strip().strip('"')
+			try:
+				wartosc = float(wartosc)
+			except:
+				pass
+		#DZIWNE ZACHOWANIE PYTHONA
+			#except ValueError as e:
+			#	print elementy[0].strip()
+			#	wartosc = wartosc
+			#	print "błąd typu "+str(e)
+			pojemnik[elementy[0].strip()] = wartosc
 	p.close()
 	return pojemnik
+	
+class Struct(object):
+	"""
+	Klasa zwraca obiekt o właściwościach odpowiadających kluczom w słowniku
+	"""
+	def __init__(self,**entries):
+		self.__dict__.update(entries)
 
-#class Dane(object):
-#	"""
-#	Klasa posiadająca atrybuty
-#	"""
-#	def __init__(self):
-#	#zdefiniowanie wartosci domyslnych, ktore bedziemy mogli pozniej zmieniac z uzyciem metody
-#		self.nazwa = "Figura"
-#		self.kolor = "bialy"
+class Dane(object):
+	"""
+	Klasa posiadająca atrybuty zgodne z metadanymi
+	"""
+	def __init__(self,slownik):
+		self.dane = slownik
+		#self.data = slownik['DATE_ACQUIRED']
+	def czyt_atrybuty(self):
+		"""
+		Metoda wczytuje metadane ze słownika
+		"""
+		obj = Struct(**self.dane)
+		self.metadane = obj
+		
 
 	
 if __name__=="__main__":
 	try:
-		dane = wczytanie_danych("..\dane\sceny\LC81910232015182LGN00_MTL.txt")
+		print os.getcwd()
+		dane_slownik = wczytanie_danych("..\dane\sceny\LC81910232015182LGN00_MTL.txt")
+		metadane = Dane(dane_slownik)
+		
 	except IOError as e:
-        print "Nie ma takiego pliku. Sprawdz nazwe lub sciezke"
-        sys.exit(2)
+		print "Nie ma takiego pliku. Sprawdz nazwe lub sciezke"
+		sys.exit(2)
 	
 
 
