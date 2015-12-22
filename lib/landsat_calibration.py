@@ -39,24 +39,32 @@ def get_AP():
     AP=-0.1
     return AP
     
+def get_matrix_size():
+    '''cos'''
+    sizeX=7861
+    sizeY=7971
+    return [sizeX,sizeY]
+
+def get_band_q():
+    band_q=8
+    return band_q
+    
 def save_cal_image(input_landsat,output_bsq,sizeX,sizeY):
     '''Funkcja iteruje po'''
     sterownik=gdal.GetDriverByName('ENVI')
     sterownik.Register()
-    zapis=sterownik.Create(output_bsq,sizeX,sizeY,7,gdal.GDT_Float32)#zawsze jest 7 kanalow
-    for x in range(7):
+    zapis=sterownik.Create(output_bsq,sizeX,sizeY,get_band_q(),gdal.GDT_Float32)#zawsze jest 7 kanalow
+    for x in range(get_band_q()):
         x=x+1
         zapis.GetRasterBand(x).WriteArray(band_reflectance(input_landsat,x,get_MP(),get_AP()))#input landsat musi być otwarte przed wywołaniem funkcji
     zapis=None #zwolnienie pamieci
     
 def run_calibration(input_image,output_image): #jeszcze metadane dla metod get_AP i get_MP
     #print upload_band(input_Landsat,1)
-    save_cal_image(get_input_dat(input_image),output_image,500,500)
+    save_cal_image(get_input_dat(input_image),output_image,get_matrix_size()[0],get_matrix_size()[1])
 
-#run_calibration('D:/studia/progamowanie/rastry/LandSat8_Wielkopolska_multispectral_10band-500x500.bsq','D:/studia/progamowanie/rastry/LandSat8_cali_new4.bsq')  
+run_calibration('D:/studia/progamowanie/rastry/landsat/L8-8band','D:/studia/progamowanie/rastry/landsat/output1.bsq')  
 
 
 
-#REFLECTANCE_ADD_BAND_N=-0.1
-#REFLECTANCE_MULT_BAND_n=0.00002    
-#reflectance(input_Landsat,5
+
