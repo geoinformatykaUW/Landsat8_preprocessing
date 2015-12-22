@@ -43,8 +43,8 @@ def save_cal_image(input_landsat,output_bsq,sizeX,sizeY):
     '''Funkcja iteruje po'''
     sterownik=gdal.GetDriverByName('ENVI')
     sterownik.Register()
-    zapis=sterownik.Create(output_bsq,sizeX,sizeY,5,gdal.GDT_Float32)#zawsze jest 7 kanalow
-    for x in range(5):
+    zapis=sterownik.Create(output_bsq,sizeX,sizeY,7,gdal.GDT_Float32)#zawsze jest 7 kanalow
+    for x in range(7):
         x=x+1
         zapis.GetRasterBand(x).WriteArray(band_reflectance(input_landsat,x,get_MP(),get_AP()))#input landsat musi być otwarte przed wywołaniem funkcji
     zapis=None #zwolnienie pamieci
@@ -53,7 +53,7 @@ def run_calibration(input_image,output_image): #jeszcze metadane dla metod get_A
     #print upload_band(input_Landsat,1)
     save_cal_image(get_input_dat(input_image),output_image,500,500)
 
-run_calibration('D:/studia/progamowanie/rastry/LandSat8_Wielkopolska_multispectral_10band-500x500.bsq','D:/studia/progamowanie/rastry/LandSat8_cali_new3.bsq')  
+run_calibration('D:/studia/progamowanie/rastry/LandSat8_Wielkopolska_multispectral_10band-500x500.bsq','D:/studia/progamowanie/rastry/LandSat8_cali_new4.bsq')  
 
 
 
