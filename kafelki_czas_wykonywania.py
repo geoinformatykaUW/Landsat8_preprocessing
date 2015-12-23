@@ -48,7 +48,7 @@ plt.tick_params(axis='x', which='major', labelsize=5)
 #os y
 plt.yticks([0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5],[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5])
 #Dekoracje
-plt.title(u'Rozmiar kafelka a szybkosc przetwarzania')
+plt.title("Rozmiar kafelka a szybkosc przetwarzania")
 plt.xlabel("Rozmiar kafelka")
 plt.ylabel("sekundy")
 plt.grid(True)

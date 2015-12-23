@@ -3,7 +3,8 @@ def tile_img_processing(raster_band,tile_size):
     kafelki z danego obrazu (raster_band)
     Argumenty:
         raster_band : obiekt klasy Band z modulu gdal
-        tile_size: rozmiar pojedynczego kafelka
+        tile_size: rozmiar pojedynczego kafelka (w pikselach)
+    Zwraca macierz o wymiarach kafelka
     """
     img_y_size = raster_band.YSize
     img_x_size = raster_band.XSize
@@ -18,5 +19,5 @@ def tile_img_processing(raster_band,tile_size):
                 numCols = tile_size
             else:
                 numCols = img_x_size - UL_x_cooridnate
-            #zwraca kafelek + wspolrzedne x i y lewgo gornego rogu prztwarzaniego kafelka    
+            #zwraca kafelek + wspolrzedne x i y lewego gornego rogu przetwarzanego kafelka    
             yield raster_band.ReadAsArray(UL_x_cooridnate,UL_y_cooridnate, numCols, numRows), UL_x_cooridnate, UL_y_cooridnate

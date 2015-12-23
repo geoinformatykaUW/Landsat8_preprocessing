@@ -36,12 +36,13 @@ RADIANCE_MULT_BAND_5 = 9.8986E-03
 RADIANCE_ADD_BAND_5 = -49.49291
 TILE_SIZE =128
 
-#tiles jest generatorem ktory na wzroci kafelki jezeli po nim iterujemy
+#tiles jest generatorem ktory nam wzroci kafelki jezeli po nim iterujemy
 tiles = tile_processing.tile_img_processing(kanal_5 ,TILE_SIZE)
 
 for tile, column, row in tiles:
     #przetwarzanie kafelka
     rad_ref = ((tile* RADIANCE_MULT_BAND_5) + RADIANCE_ADD_BAND_5)*100
+    #zapis kafelka do nowego pliku 
     zapis.GetRasterBand(1).WriteArray(rad_ref, column, row)
         
 rad_ref=None
