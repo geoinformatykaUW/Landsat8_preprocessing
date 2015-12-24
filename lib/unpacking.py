@@ -44,7 +44,6 @@ class UnpackArchive(object):
             os.mkdir(self.save_path)
             self._unpack_targz_file()
         
-<<<<<<< HEAD
     def _check_if_dir_exists(self, directory):
         """
         Sprawdza czy plik konczy sie na .tar.gz -> archiwum    
@@ -65,7 +64,6 @@ class UnpackArchive(object):
     
     
     
-=======
 def check_if_dir_exists(dir):
     return os.path.exists(dir)
 
@@ -79,4 +77,3 @@ def unpack_targz_file(archive_file, save_dir):
     except IOError as e:
         print "Nie ma takiego pliku. Sprawdz nazwe lub sciezke"
         sys.exit(2)
->>>>>>> unpacking
