@@ -61,19 +61,3 @@ class UnpackArchive(object):
         except IOError as e:
             self.sucess = False
             print e
-    
-    
-    
-def check_if_dir_exists(dir):
-    return os.path.exists(dir)
-
-def unpack_targz_file(archive_file, save_dir):
-    """
-    Wypakowuje zawartosc archiwum do save_dir(abspath)    
-    """
-    try:
-        with tarfile.open(archive_file) as tar_file:
-            tar_file.extractall(path=save_dir) 
-    except IOError as e:
-        print "Nie ma takiego pliku. Sprawdz nazwe lub sciezke"
-        sys.exit(2)
