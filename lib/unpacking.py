@@ -5,62 +5,61 @@
 import os
 import tarfile
 
-def un_gzip_file(archive, write_file):
-    """
-    Wypakowuje zawartosc archium do danego katalogu
-    Argumenty:
-        archive: sciezka do archiwum (relatywna wzgledem foldera roboczego)
-        write_file: nazwa katalogu do ktorego zostana rozpakowane
-                    zawartosci archiwum (relatywna wzgledem foldera roboczego)
-    """
-    try:
-        archive_file, save_dir = preapare_paths_dirs(archive, write_file)
-        unpack_into_dir(archive_file,save_dir)
-        print "Skończono wypakowywanie archiwum"
-    except IOError:
-        print "Archiwum w złym formacie: " + archive
-        
-def preapare_paths_dirs(archive, write_file):
-    """
-    Funkcja sprawdzajaca czy dane archiwum(archive) istnieje.
-    Przygotowuje sciezki do przetwarzania
-    Zwraca:
-        nazwe archiwum,
-        absoluta sciezke do katalogu zapisu
-    """
-    if check_if_archive(archive):
-        archive_file = os.path.abspath(archive)  
-        save_dir = os.path.abspath(write_file)
-        return archive_file, save_dir
-    else:
-        raise IOError        
-        
-def check_if_archive(file):
-    """
-    Sprawdza czy plik konczy sie na .tar.gz -> archiwum    
-    """
-    return file.endswith("tar.gz")
 
-def unpack_into_dir(archive_file,save_dir):
+class UnpackArchive(object):
     """
-    Sprawdza czy folder na wynik istneje. Jezeli nie to go tworzy.
-    Nastepnie wywoluje funkcje unpack_targz_file(archive_file, save_dir)  
-    """
-    if check_if_dir_exists(save_dir):
-        unpack_targz_file(archive_file,save_dir)     
-    else:
-        os.mkdir(save_dir)
-        unpack_targz_file(archive_file,save_dir)
+    Klasa do wypakowania archiwum tar.gz do wybranego katalogu
+    
+    Wlasciwosci:
+        self.archive_path :absolutna sciezka do archiwum
+        self.save_path :absolutna sciezka do miejsca wypakowania zawartosci archiwum
+        self.sucess :True jezeli wypakowywanie skonczylo sie sukcesem
         
-def check_if_dir_exists(dir):
-    return os.path.exists(dir)
+    Metody publiczne:
+        unpack_into_dir(save_directory): wypakowuje zawartosc archiwum do wskazanego miejsca
+    """
+    def __init__(self,file):
+        if self._check_archive(file):
+            self.archive_path = os.path.abspath(file)
+        else:
+            #jak plik nie jest archiwum zakończ bez tworzenia obiektu
+            raise IOError("Plik nie jest archiwum tar.gz")
+            
+    def _check_archive(self,file):
+        """
+        Sprawdza czy plik konczy sie na .tar.gz -> archiwum    
+        """
+        return file.endswith("tar.gz")
 
-def unpack_targz_file(archive_file, save_dir):
-    """
-    Wypakowuje zawartosc archiwum do save_dir(abspath)    
-    """
-    try:
-        with tarfile.open(archive_file) as tar_file:
-            tar_file.extractall(path=save_dir) 
-    except IOError as e:
-        print e
+    def unpack_into_dir(self, save_directory):
+        """
+        Wypakowuje zawartosc archiwum do save_directory.
+        Jezeli save_directory nie istnieje to tworzy nowy folder/nowe foldery.
+        """
+        self.save_path =  os.path.abspath(save_directory)
+        if self._check_if_dir_exists(save_directory) == False:
+            self._unpack_targz_file()
+        else:
+            os.mkdir(self.save_path)
+            self._unpack_targz_file()
+        
+    def _check_if_dir_exists(self, directory):
+        """
+        Sprawdza czy plik konczy sie na .tar.gz -> archiwum    
+        """
+        return os.path.exists(directory)   
+        
+    def _unpack_targz_file(self):
+        """
+        wypakowuje archiwum przy uzyciu modulu tarfile  
+        """
+        try:
+            with tarfile.open(self.archive_path) as tar_file:
+                tar_file.extractall(path=self.save_path) 
+            self.sucess = True
+        except IOError as e:
+            self.sucess = False
+            print e
+    
+    
+    
