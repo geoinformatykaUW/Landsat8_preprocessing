@@ -63,8 +63,7 @@ def run_calibration(input_image,output_image): #jeszcze metadane dla metod get_A
     #print upload_band(input_Landsat,1)
     save_cal_image(get_input_dat(input_image),output_image,get_matrix_size()[0],get_matrix_size()[1])
 
-#run_calibration('D:/studia/progamowanie/rastry/landsat/L8-8band','D:/studia/progamowanie/rastry/landsat/output1.bsq')  
-
+run_calibration('D:/studia/progamowanie/rastry/landsat/L8-8band','D:/studia/progamowanie/rastry/landsat/output2.bsq')  
 
 
 
