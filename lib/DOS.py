@@ -2,7 +2,7 @@
 """
 Created on Tue Dec 22 09:59:47 2015
 
-@author: Janek
+@author: Janek, Paweł
 """
 
 import landsat_calibration, numpy
@@ -11,9 +11,14 @@ input_landsat=landsat_calibration.get_input_dat('D:/studia/progamowanie/rastry/l
 
 def DOS(source,bandX):
     band_matrix=landsat_calibration.upload_band(source,bandX)
+    positive_values=[]
+    for x in band_matrix:
+        for y in x:
+            if y>0:
+                positive_values.append(y)
+    lowest_reflectance=min(positive_values) #minimalna wartosc odbicia na obrazie
+    dos_band_matrix=band_matrix-lowest_reflectance #macierz wartości odbicia po wykonaniu dosa, pozostaje zapisać do formatu ENVI
     
-    for x,y in band_matrix:
-        if y >=0:
             
     
 DOS(input_landsat,1)
