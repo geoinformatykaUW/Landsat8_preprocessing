@@ -54,6 +54,7 @@ build/
 [Rr]esults/
 [Dd]ane/
 [Ww]yniki/
+[Ww]ynik/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -222,3 +223,4 @@ pip-log.txt
 .mr.developer.cfg
 .spyderproject
 .spyderworkspace
+*.png
