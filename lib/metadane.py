@@ -15,11 +15,6 @@ def wczytanie_danych(plik):
 				wartosc = float(wartosc)
 			except:
 				pass
-		#DZIWNE ZACHOWANIE PYTHONA
-			#except ValueError as e:
-			#	print elementy[0].strip()
-			#	wartosc = wartosc
-			#	print "błąd typu "+str(e)
 			pojemnik[elementy[0].strip()] = wartosc
 	p.close()
 	return pojemnik
