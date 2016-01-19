@@ -27,6 +27,7 @@ def band_DOS(source,bandX,MP,AP):
        AP = Reflectance additive scaling factor for the band (REFLECTANCE_ADD_BAND_N from the metadata).'''
     matrix_calibration=upload_band(source,bandX)*MP+AP
     dos_band_matrix=matrix_calibration-min(matrix_calibration[matrix_calibration>0])
+    print min(matrix_calibration[matrix_calibration>0])
     return dos_band_matrix
     
 def get_MP():
@@ -61,7 +62,7 @@ def run_correction(input_image,output_image): #jeszcze metadane dla metod get_AP
     end=time.time()-start
     print end
 
-#run_correction('D:/studia/progamowanie/rastry/landsat/L8-8band','D:/studia/progamowanie/rastry/landsat/korekcja1.bsq')  
+run_correction('D:/studia/progamowanie/rastry/landsat/L8-8band','D:/studia/progamowanie/rastry/landsat/korekcja1.bsq')  
 
 
 
