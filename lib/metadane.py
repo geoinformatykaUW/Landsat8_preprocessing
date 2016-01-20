@@ -15,11 +15,6 @@ def wczytanie_danych(plik):
 				wartosc = float(wartosc)
 			except:
 				pass
-		#DZIWNE ZACHOWANIE PYTHONA
-			#except ValueError as e:
-			#	print elementy[0].strip()
-			#	wartosc = wartosc
-			#	print "błąd typu "+str(e)
 			pojemnik[elementy[0].strip()] = wartosc
 	p.close()
 	return pojemnik
@@ -50,12 +45,10 @@ class Dane(object):
 if __name__=="__main__":
 	try:
 		print os.getcwd()
-		dane_slownik = wczytanie_danych("..\dane\sceny\LC81910232015182LGN00_MTL.txt")
+		dane_slownik = wczytanie_danych("D:/Landsat_8_dziewczyny/LC81910232015182LGN00/LC81910232015182LGN00_MTL.txt")
 		metadane = Dane(dane_slownik)
 		
 	except IOError as e:
 		print "Nie ma takiego pliku. Sprawdz nazwe lub sciezke"
 		sys.exit(2)
 	
-
-
