@@ -39,9 +39,12 @@ def stackowanie_kanalow_OLI(folder_wejscia,plik_zapisu):
     sterownik.Register()
     zapis=sterownik.Create(plik_zapisu,7861,7971,8,gdal.GDT_Int16)#po zmerdzowaniu kodu z innymi trzeba bedzie skorzystac z metody odczytujacej wielkosci rastra z metadanych 
     licznik=-1
+	#zapis.SetProjection(raster
     for x in utworz_zbiory(znajdz_pliki(folder_wejscia))[1]:
         licznik+=1
         raster_band=gdal.Open(folder_wejscia+'//'+x).ReadAsArray()
+		zapis.SetProjection(raster_band.GetProjection())
+		zapis.SetGeoTransform(raster_band.GetGeoTransform())
         zapis.GetRasterBand(licznik+1).WriteArray(raster_band)
     zapis=None
     with open(str(plik_zapisu[:-4]+'.hdr'),'a') as metadane:
