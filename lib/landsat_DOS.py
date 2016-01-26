@@ -17,61 +17,46 @@ def get_input_dat(input_path):
 def upload_band(input_dat,bandX):
     '''Pobiera wartości zadanego kanału z określonego zobrazowania landsat 8.
     Jako parametry wejściowe przyjmuje cieżkę do pliku obrazu *.bsq i numer kanału
-    ktory ma zostac zaimportowany. Wartosci kanału sa dodawane do macierzy.'''
+    ktory ma zostac zaimportowany. Wartosci kanału sa dodawane do macieży.'''
     kanal=input_dat.GetRasterBand(int(bandX))
     matrix=numpy.array(kanal.ReadAsArray(),dtype=numpy.float32)
     return matrix
     
 def band_DOS(source,bandX,MP,AP):
-    '''Na początku wykonuje kalibracje obrazu, polegającą na przeliczeniu wartości DN na wartości odbicia.
-    W tym celu mnoży wartość wartość DN dla każdego piksela na obrazie przez wartość MP a nstępnie dodaje
-    do otzrymanego wyniku wartosć AP, gdzie:
-    MP = Reflectance multiplicative scaling factor for the band (REFLECTANCE_MULT_BAND_N from the metadata).
-    AP = Reflectance additive scaling factor for the band (REFLECTANCE_ADD_BAND_N from the metadata).
-    Następnie wykonuje korekcje atmosferyczną metodą Dark Object Subtraction, poprzez odjęcie najnizszej
-    dodatniej wartosci odbicia odczytanej z obrazu od wartości odbicia dla pozostałych pikseli na obrazie.
-    Jako parametry wejsciowe przyjmuje macierz z wartościam DN, numer kanału oraz wartości MP i AP.'''
+    '''MP = Reflectance multiplicative scaling factor for the band (REFLECTANCEW_MULT_BAND_n from the metadata).
+       AP = Reflectance additive scaling factor for the band (REFLECTANCE_ADD_BAND_N from the metadata).'''
     matrix_calibration=upload_band(source,bandX)*MP+AP
     dos_band_matrix=matrix_calibration-min(matrix_calibration[matrix_calibration>0])
     #print min(matrix_calibration[matrix_calibration>0])
     return dos_band_matrix
     
 def get_MP(x,metadata_path):
-    '''Pobiera wartość MP z metadanych. Jako parametry wejściowe przyjmuje numer analizowanego kanału oraz 
-    ścieżkę do pliku z metadanymi. Wykorzystuje utworzony wcześniej skrypt metadane.py.'''
+    '''pobiera wartosc mp z metadanych'''
     MP=metadane.wczytanie_danych(metadata_path)['REFLECTANCE_MULT_BAND_'+str(x)]
     return MP    
     
 def get_AP(x,metadata_path):
-    '''Pobiera wartość AP z metadanych. Jako parametry wejściowe przyjmuje numer analizowanego kanału oraz 
-    ścieżkę do pliku z metadanymi.Wykorzystuje utworzony wcześniej skrypt metadane.py.'''
+    '''pobiera wartosc ap z metadanych'''
     AP=metadane.wczytanie_danych(metadata_path)['REFLECTANCE_ADD_BAND_'+str(x)]
     return AP
     
 def get_matrix_size(metadata_path):
-    '''Pobiera wielkość zobrazowania z metadanych. Jako parametry wejściowe przyjmuje
-    ścieżkę do pliku z metadanymi. Wykorzystuje utworzony wcześniej skrypt metadane.py.'''
+    '''cos'''
     sizeX=int(metadane.wczytanie_danych(metadata_path)['REFLECTIVE_SAMPLES'])
     sizeY=int(metadane.wczytanie_danych(metadata_path)['REFLECTIVE_LINES'])
     return [sizeX,sizeY]
 
 def save_dos_image(input_landsat,output_bsq,sizeX,sizeY,metadata_path):
-    '''Zapisuje obrazy wszystkich kanałow po wykonanych korekcjach do jednego pliku w formacie .bsq.
-    Jako parametry wejsciowe przyjmuje otwarty obraz Landsat, ścieżke do zapisu pliku wyjściowego,
-    wymiary obrazu wyjściowego oraz ścieżkę dostępu do pliku z metadanymi. Przyjęte zostaje założenie,
-    że obraz wejściowy i wyjściowy składa się z 8 kanałow.'''
+    #Funkcja iteruje po
     sterownik=gdal.GetDriverByName('ENVI')
     sterownik.Register()
-    zapis=sterownik.Create(output_bsq,sizeX,sizeY,8,gdal.GDT_Float32)
+    zapis=sterownik.Create(output_bsq,sizeX,sizeY,8,gdal.GDT_Float32)#zawsze jest 8 kanalow
     for x in range(8):
         x=x+1
         zapis.GetRasterBand(x).WriteArray(band_DOS(input_landsat,x,get_MP(x,metadata_path),get_AP(x,metadata_path)))#input landsat musi być otwarte przed wywołaniem funkcji
     zapis=None #zwolnienie pamieci
     
-def run_correction(input_image,output_image,metadata_path):
-    '''Metoda powoduje wykonanie korekcji atmosferycznej i wszystkich związanych z nią procesow zawartych
-    w pozostałych metodach. Jako parametry wejsciowe przyjmuje ścieżke zestackowanego obrazu wejściowego,
-    ścieżke do zapisu obrazu po korekcji oraz sciezke do pliku z metadanymi.'''
+def run_correction(input_image,output_image,metadata_path): #jeszcze metadane dla metod get_AP i get_MP
     save_dos_image(get_input_dat(input_image),output_image,get_matrix_size(metadata_path)[0],get_matrix_size(metadata_path)[1],metadata_path)
 
 #run_correction('D:/studia/progamowanie/rastry/landsat/L8-8band','D:/studia/progamowanie/rastry/landsat/korekcja8.bsq', "D:/Landsat_8_dziewczyny/LC81910232015182LGN00/LC81910232015182LGN00_MTL.txt")  
