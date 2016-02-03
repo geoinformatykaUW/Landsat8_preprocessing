@@ -3,7 +3,6 @@
 #Wypadowuje zawartosc archwum do wybranego katalogu
 
 import os
-import sys
 import tarfile
 
 

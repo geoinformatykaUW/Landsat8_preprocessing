@@ -59,6 +59,7 @@ def save_dos_image(input_landsat,output_bsq,sizeX,sizeY,metadata_path):
     Jako parametry wejsciowe przyjmuje otwarty obraz Landsat, ścieżke do zapisu pliku wyjściowego,
     wymiary obrazu wyjściowego oraz ścieżkę dostępu do pliku z metadanymi. Przyjęte zostaje założenie,
     że obraz wejściowy i wyjściowy składa się z 8 kanałow.'''
+    print "Wykonuje korekcje obrazu (DOS)"
     sterownik=gdal.GetDriverByName('ENVI')
     sterownik.Register()
     zapis=sterownik.Create(output_bsq,sizeX,sizeY,8,gdal.GDT_Float32)

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#Zestaw funkcji ogolnego uzycia
 
 import os
 import errors

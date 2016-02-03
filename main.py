@@ -13,11 +13,13 @@ import stakowanie
 
 if __name__ == "__main__":
     
+    #sciezka do archiwum
     in_file="dane/LC81910232015262LGN00.tar.gz"
-    write_dir="dane/sceny"
+    #sciezka do fodleru z wynikami
+    write_dir="wynik/sceny"
 
-    #archive = unpacking.UnpackArchive(in_file)
-    #archive.unpack_into_dir(write_dir)
+    archive = unpacking.UnpackArchive(in_file)
+    archive.unpack_into_dir(write_dir)
     path_to_mtl = utils.find_metadata_file(archive.save_path)
     dane_slownik = metadane.wczytanie_danych(path_to_mtl)
     scena_metadane = metadane.Dane(dane_slownik)

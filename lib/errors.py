@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#Klasa do obslugi wyjątkow
+
 class NoMetadataFileError(Exception):
     def __init__(self):
         super(Exception,self).__init__()
