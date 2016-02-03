@@ -31,7 +31,8 @@ class Dane(object):
 	Klasa posiadająca atrybuty zgodne z metadanymi
 	"""
 	def __init__(self,slownik):
-		self.dane = slownik
+         self.dane = slownik
+         self.czyt_atrybuty()
 		#self.data = slownik['DATE_ACQUIRED']
 	def czyt_atrybuty(self):
 		"""
@@ -39,9 +40,7 @@ class Dane(object):
 		"""
 		obj = Struct(**self.dane)
 		self.metadane = obj
-		
-
-	
+			
 if __name__=="__main__":
 	try:
 		print os.getcwd()

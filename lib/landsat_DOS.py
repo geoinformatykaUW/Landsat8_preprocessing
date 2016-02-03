@@ -64,6 +64,7 @@ def save_dos_image(input_landsat,output_bsq,sizeX,sizeY,metadata_path):
     zapis=sterownik.Create(output_bsq,sizeX,sizeY,8,gdal.GDT_Float32)
     for x in range(8):
         x=x+1
+        print "Pracuje na kanale"+str(x)
         zapis.GetRasterBand(x).WriteArray(band_DOS(input_landsat,x,get_MP(x,metadata_path),get_AP(x,metadata_path)))#input landsat musi być otwarte przed wywołaniem funkcji
     zapis=None #zwolnienie pamieci
     with open(str(output_bsq[:-4]+'.hdr'),'a') as metadane:
